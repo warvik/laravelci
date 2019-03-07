@@ -2,12 +2,23 @@
 #
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
+php_environment: &php_environment
+  environment: &php_environment_variables
+    APP_ENV: testing
+    APP_KEY: superrandom32characterlongstring
+    MYSTORE_RABBITMQ_HOST: 0.0.0.0
+    DB_TEST_HOST: 0.0.0.0
+    DB_DEMO_HOST: 0.0.0.0
+    DB_PRODUCTION_HOST: 0.0.0.0
+    DB_DEMO_DATABASE: 'mystore2-test'
+    DB_PRODUCTION_DATABASE: 'mystore2-test'
 version: 2
 jobs:
   build:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.1-node-browsers
+      <<: *php_environment_variables
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -20,6 +31,8 @@ jobs:
 
     steps:
       - checkout
+      
+      - run: echo $APP_KEY
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-install zip
