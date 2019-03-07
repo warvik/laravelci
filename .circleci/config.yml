@@ -18,7 +18,8 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.1-node-browsers
-      <<: *php_environment
+    environment:
+      APP_KEY: superrandom32characterlongstring
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
